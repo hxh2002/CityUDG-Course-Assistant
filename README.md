@@ -7,7 +7,6 @@
 - 搜索、按课程类型 / 上课日筛选
 - Semester A 开课与全部培养方案课程库切换
 - 加入 / 删除课程，`localStorage` 自动保存
-- 数据科学优化（DSC6011 Optimization for Data Science）并行班切换
 - 周一至周六可视化课表
 - 已知时段冲突检测
 - 核心 / 选修 / University Requirement / 总学分统计

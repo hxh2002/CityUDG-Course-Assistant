@@ -206,6 +206,9 @@ window.DS_ASSISTANT_DATA = {
       "planningEligible": true,
       "firstSemesterRequired": true,
       "instructor": "崔康宁 Prof. CUI Kangning",
+      "aliases": [
+        "高清周课表该格印刷为 DS5001；Course List 正式代码为 DSC5001"
+      ],
       "sections": [
         {
           "id": "MAIN",
@@ -216,7 +219,7 @@ window.DS_ASSISTANT_DATA = {
               "start": "14:00",
               "end": "15:50",
               "type": "Lecture",
-              "room": "ACS-515",
+              "room": "AC5-515",
               "weeks": "常规周"
             },
             {
@@ -224,7 +227,7 @@ window.DS_ASSISTANT_DATA = {
               "start": "16:00",
               "end": "16:50",
               "type": "Tutorial",
-              "room": "ACS-515",
+              "room": "AC5-515",
               "weeks": "常规周"
             }
           ]
@@ -269,7 +272,7 @@ window.DS_ASSISTANT_DATA = {
               "start": "14:00",
               "end": "16:50",
               "type": "Lecture",
-              "room": "ACS-515",
+              "room": "AC5-515",
               "weeks": "Week 1–13"
             }
           ]
@@ -301,15 +304,15 @@ window.DS_ASSISTANT_DATA = {
               "start": "09:30",
               "end": "11:20",
               "type": "Lecture",
-              "room": "ACS-515",
+              "room": "AC5-515",
               "weeks": "常规周"
             },
             {
               "day": "F",
               "start": "11:30",
               "end": "12:20",
-              "type": "Tutorial",
-              "room": "ACS-515",
+              "type": "Laboratory",
+              "room": "AC5-515",
               "weeks": "常规周"
             }
           ]
@@ -356,7 +359,7 @@ window.DS_ASSISTANT_DATA = {
               "start": "14:00",
               "end": "15:50",
               "type": "Lecture",
-              "room": "ACS-514",
+              "room": "AC5-514",
               "weeks": "常规周"
             },
             {
@@ -364,7 +367,7 @@ window.DS_ASSISTANT_DATA = {
               "start": "16:00",
               "end": "16:50",
               "type": "Lab",
-              "room": "ACS-514",
+              "room": "AC5-514",
               "weeks": "常规周"
             }
           ]
@@ -418,7 +421,7 @@ window.DS_ASSISTANT_DATA = {
               "start": "14:00",
               "end": "16:50",
               "type": "Lecture / Tutorial",
-              "room": "ACS-514",
+              "room": "AC5-514",
               "weeks": "Week 1–8, 10–13 Lecture；Week 9 Tutorial"
             }
           ]
@@ -450,7 +453,7 @@ window.DS_ASSISTANT_DATA = {
               "start": "14:00",
               "end": "15:50",
               "type": "Lecture",
-              "room": "ACS-514",
+              "room": "AC5-514",
               "weeks": "Week 2–13"
             },
             {
@@ -458,15 +461,23 @@ window.DS_ASSISTANT_DATA = {
               "start": "16:00",
               "end": "16:50",
               "type": "Tutorial",
-              "room": "ACS-514",
+              "room": "AC5-514",
               "weeks": "Week 2–13"
             },
             {
               "day": "S",
               "start": "14:00",
+              "end": "15:50",
+              "type": "Lecture",
+              "room": "AC5-514",
+              "weeks": "Week 1"
+            },
+            {
+              "day": "S",
+              "start": "16:00",
               "end": "16:50",
-              "type": "Week 1 临时调整",
-              "room": "ACS-514",
+              "type": "Tutorial",
+              "room": "AC5-514",
               "weeks": "Week 1"
             }
           ]
@@ -494,40 +505,18 @@ window.DS_ASSISTANT_DATA = {
       "offeredSemA": true,
       "planningEligible": true,
       "electiveRank": 1,
-      "instructor": "梁以文 Prof. Eman Leung / 何展鹏 Prof. Chin Pang HO（并行班）",
+      "instructor": "何展鹏 Prof. Chin Pang HO",
       "sections": [
         {
-          "id": "TUE",
-          "label": "周二班 · Eman Leung",
-          "meetings": [
-            {
-              "day": "T",
-              "start": "09:30",
-              "end": "11:20",
-              "type": "Lecture",
-              "room": "ACS-514",
-              "weeks": "常规周"
-            },
-            {
-              "day": "T",
-              "start": "11:30",
-              "end": "12:20",
-              "type": "Tutorial",
-              "room": "ACS-514",
-              "weeks": "常规周"
-            }
-          ]
-        },
-        {
-          "id": "WED",
-          "label": "周三班 · Chin Pang HO",
+          "id": "MAIN",
+          "label": "主班",
           "meetings": [
             {
               "day": "W",
               "start": "09:30",
               "end": "11:20",
               "type": "Lecture",
-              "room": "ACS-514",
+              "room": "AC5-514",
               "weeks": "Week 2–13"
             },
             {
@@ -535,15 +524,23 @@ window.DS_ASSISTANT_DATA = {
               "start": "11:30",
               "end": "12:20",
               "type": "Tutorial",
-              "room": "ACS-514",
+              "room": "AC5-514",
               "weeks": "Week 2–13"
             },
             {
               "day": "S",
               "start": "09:30",
+              "end": "11:20",
+              "type": "Lecture",
+              "room": "AC5-514",
+              "weeks": "Week 1"
+            },
+            {
+              "day": "S",
+              "start": "11:30",
               "end": "12:20",
-              "type": "Week 1 临时调整",
-              "room": "ACS-514",
+              "type": "Tutorial",
+              "room": "AC5-514",
               "weeks": "Week 1"
             }
           ]
@@ -572,11 +569,33 @@ window.DS_ASSISTANT_DATA = {
       "planningEligible": true,
       "electiveRank": 5,
       "instructor": "梁以文 Prof. Eman Leung",
-      "sections": [],
-      "scheduleUnknown": true,
+      "sections": [
+        {
+          "id": "MAIN",
+          "label": "主班",
+          "meetings": [
+            {
+              "day": "T",
+              "start": "09:30",
+              "end": "11:20",
+              "type": "Lecture",
+              "room": "AC5-514",
+              "weeks": "常规周"
+            },
+            {
+              "day": "T",
+              "start": "11:30",
+              "end": "12:20",
+              "type": "Tutorial",
+              "room": "AC5-514",
+              "weeks": "常规周"
+            }
+          ]
+        }
+      ],
       "prerequisites": "未标注",
       "sources": [
-        "Sem A Course List / CIR / Textbook Mapping"
+        "Sem A Course List / 完整周课表 / CIR / Textbook Mapping"
       ],
       "textbooks": [
         {
