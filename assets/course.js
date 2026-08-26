@@ -3,7 +3,7 @@
   "use strict";
   const A=window.DSA,D=A.DATA;
   const root=document.getElementById("course-detail");
-  const code=new URLSearchParams(location.search).get("code");
+  const code=new URLSearchParams(location.search).get("c");
   const c=A.courseByCode(code);
   if(!c){
     root.innerHTML='<div class="detail-empty"><h1>找不到课程</h1><p>请返回课程表重新选择。</p><a class="button button-primary" href="index.html">返回</a></div>';
@@ -25,30 +25,23 @@
     <span>${A.esc(b.authors||"")}</span>
     <small>ISBN ${A.esc(b.isbn||"—")} · ${A.esc(b.note||"")}</small>
   </div>`).join("");
-  const PROFILE_KEY="cityudg-ds-comment-profile-v1";
-  function getProfile(){
-    try{return JSON.parse(localStorage.getItem(PROFILE_KEY)||"{}");}catch(_){return {};}
-  }
-  function saveProfile(p){localStorage.setItem(PROFILE_KEY,JSON.stringify(p));}
-  function avatarFor(user,size=42){
-    if(user){
-      const gh=String(user).trim();
+  const S = window.SUPABASE;
+  function avatarFor(github, size){
+    if(github){
+      const gh=String(github).trim();
       if(/^[a-zA-Z0-9_-]{1,39}$/.test(gh)){
-        return `<img class="cm-avatar" src="https://github.com/${encodeURIComponent(gh)}.png?s=${size}" alt="@${A.esc(gh)}" onerror="this.removeAttribute('src');this.classList.add('cm-avatar-txt');this.textContent=(${JSON.stringify(gh.charAt(0).toUpperCase())});" referrerpolicy="no-referrer">`;
+        return `<img class="cm-avatar" src="https://github.com/${encodeURIComponent(gh)}.png?s=${size||42}" alt="@${A.esc(gh)}" onerror="this.removeAttribute('src');this.classList.add('cm-avatar-txt');this.textContent=(${JSON.stringify(gh.charAt(0).toUpperCase())});" referrerpolicy="no-referrer">`;
       }
-      const ch=String(user).trim().charAt(0).toUpperCase()||"?";
-      return `<span class="cm-avatar cm-avatar-txt">${A.esc(ch)}</span>`;
     }
     return `<span class="cm-avatar cm-avatar-txt">?</span>`;
   }
   function nameFor(entry){
-    if(entry.github){
-      const gh=String(entry.github).trim();
-      const display=entry.name?`${A.esc(entry.name)} <a class="cm-gh-link" href="https://github.com/${encodeURIComponent(gh)}" target="_blank" rel="noreferrer">@${A.esc(gh)}</a>`:
-        `<a class="cm-gh-link" href="https://github.com/${encodeURIComponent(gh)}" target="_blank" rel="noreferrer">@${A.esc(gh)}</a>`;
-      return display;
+    const gh=entry.github_username ? String(entry.github_username).trim() : "";
+    const nm=A.esc(entry.user_name || "匿名");
+    if(gh){
+      return `${nm} <a class="cm-gh-link" href="https://github.com/${encodeURIComponent(gh)}" target="_blank" rel="noreferrer">@${A.esc(gh)}</a>`;
     }
-    return `<span>${A.esc(entry.name||"匿名")}</span>`;
+    return nm;
   }
   function starRow(n){
     const v=Number(n)||0;
@@ -56,89 +49,117 @@
     for(let i=1;i<=5;i++) s+=`<span class="star ${i<=v?"on":""}">★</span>`;
     return `<span class="stars">${s}</span>`;
   }
-  function commentTemplate(list){
+  function commentList(list, userId){
     if(!list.length){
       return `<div class="notice source-empty">还没有评论或评分，成为第一个吧。</div>`;
     }
     return list.map(e=>{
-      const cs=A.commentStats(c.code);
+      const own = userId && e.user_id === userId;
       return `<article class="cm-item" data-id="${A.esc(e.id)}">
-        ${avatarFor(e.github)}
+        ${avatarFor(e.github_username)}
         <div class="cm-body">
           <div class="cm-head">
             <div class="cm-who">${nameFor(e)} ${e.rating?starRow(e.rating):""}</div>
-            <small class="cm-time">${new Date(e.ts).toLocaleString("zh-CN",{timeZone:"Asia/Shanghai"})}</small>
+            <small class="cm-time">${new Date(e.created_at).toLocaleString("zh-CN",{timeZone:"Asia/Shanghai"})}</small>
           </div>
           ${e.content?`<p class="cm-text">${A.esc(e.content)}</p>`:""}
-          <button class="cm-del" data-id="${A.esc(e.id)}" title="删除该评论">删除</button>
+          ${own?`<button class="cm-del" data-id="${A.esc(e.id)}" title="删除该评论">删除</button>`:""}
         </div>
       </article>`;
     }).join("");
   }
-  function ratingTemplate(){
-    const cs=A.commentStats(c.code);
+  function overviewTemplate(cs){
     const avg=(Math.round(cs.avg*10)/10).toFixed(1);
-    return `<div class="cm-overview">
-      <div class="cm-avg">
-        <h3>社区评分</h3>
-        <div class="cm-avg-num"><strong>${cs.ratingCount?avg:"—"}</strong><small>/ 5.0</small></div>
-        ${cs.ratingCount?`<div class="cm-avg-stars">${starRow(Math.round(cs.avg))}</div>`:""}
-        <p class="cm-meta">${cs.count} 条评论 · ${cs.ratingCount} 个打分</p>
+    return `<div class="cm-avg">
+      <h3>社区评分</h3>
+      <div class="cm-avg-num"><strong>${cs.ratingCount?avg:"—"}</strong><small>/ 5.0</small></div>
+      ${cs.ratingCount?`<div class="cm-avg-stars">${starRow(Math.round(cs.avg))}</div>`:""}
+      <p class="cm-meta">${cs.count} 条评论 · ${cs.ratingCount} 个打分</p>
+    </div>`;
+  }
+  function loginGate(){
+    return `<div class="cm-form-box">
+      <h3>写评论</h3>
+      <p class="muted-note" style="margin:0 0 12px">评论需要登录。使用 GitHub 账号登录后即可发表评论与打分。</p>
+      <button id="cm-login" class="button button-primary">使用 GitHub 登录</button>
+    </div>`;
+  }
+  function commentForm(user){
+    const meta = user.user_metadata || {};
+    const gh = (meta.user_name || meta.preferred_username || "").trim();
+    const nm = meta.user_name || meta.full_name || meta.name || user.email || "GitHub 用户";
+    return `<div class="cm-form-box">
+      <div class="cm-head" style="margin-bottom:12px">
+        <div class="cm-who">${avatarFor(gh,34)} <span>以 ${A.esc(nm)}${gh?` (<a class="cm-gh-link" href="https://github.com/${encodeURIComponent(gh)}" target="_blank" rel="noreferrer">@${A.esc(gh)}</a>)`:""} 的身份评论</span></div>
+        <button id="cm-logout" class="button button-quiet">退出登录</button>
       </div>
-      <div class="cm-form-box">
-        <h3>写评论</h3>
-        <div class="cm-form-row">
-          <label class="cm-field">昵称<input id="cm-name" type="text" placeholder="必填，不超过 20 字" maxlength="20"></label>
-          <label class="cm-field">GitHub 用户名（可选）<input id="cm-gh" type="text" placeholder="例：octocat；用于显示头像和链接" maxlength="39"></label>
-        </div>
-        <div class="cm-form-row">
-          <label class="cm-field">打分
-            <select id="cm-rating">
-              <option value="0">不打分</option>
-              <option value="1">1 · 困难</option>
-              <option value="2">2 · 一般</option>
-              <option value="3">3 · 中等</option>
-              <option value="4">4 · 友好</option>
-              <option value="5">5 · 强烈推荐</option>
-            </select>
-          </label>
-        </div>
-        <label class="cm-field cm-textarea">评论内容<textarea id="cm-content" rows="3" placeholder="教师、教材、作业量、主观感受…… 超过 500 字将截断。" maxlength="500"></textarea></label>
-        <div class="cm-form-actions">
-          <label class="cm-remember"><input id="cm-remember" type="checkbox" checked>记住昵称与 GitHub 用户名</label>
-          <button id="cm-submit" class="button button-primary">发布</button>
-        </div>
-        <p class="muted-note" style="margin:6px 0 0">提示：当前评论保存在浏览器 localStorage，不同设备/浏览器不会共享。</p>
+      <div class="cm-form-row">
+        <label class="cm-field">打分
+          <select id="cm-rating">
+            <option value="0">不打分</option>
+            <option value="1">1 · 困难</option>
+            <option value="2">2 · 一般</option>
+            <option value="3">3 · 中等</option>
+            <option value="4">4 · 友好</option>
+            <option value="5">5 · 强烈推荐</option>
+          </select>
+        </label>
+      </div>
+      <label class="cm-field cm-textarea">评论内容<textarea id="cm-content" rows="3" placeholder="教师、教材、作业量、主观感受…… 超过 500 字将截断。" maxlength="500"></textarea></label>
+      <div class="cm-form-actions">
+        <span class="muted-note">评论将公开显示，仅本人可删除。</span>
+        <button id="cm-submit" class="button button-primary">发布</button>
       </div>
     </div>`;
   }
-  function renderComments(){
+  async function renderComments(){
     const section=document.getElementById("comments-section");
     if(!section)return;
-    const list=A.commentsFor(c.code);
-    section.innerHTML=ratingTemplate()+`<div id="comment-list" class="cm-list">${commentTemplate(list)}</div>`;
-    const profile=getProfile();
-    const n=document.getElementById("cm-name"); if(n)n.value=profile.name||"";
-    const g=document.getElementById("cm-gh"); if(g)g.value=profile.github||"";
-    const r=document.getElementById("cm-remember"); if(r)r.checked=profile.remember!==false;
-    document.querySelectorAll(".cm-del").forEach(b=>b.addEventListener("click",()=>{
-      if(confirm("删除该评论？")){
-        A.deleteComment(c.code,b.dataset.id); A.showToast("已删除"); renderComments();
-      }
-    }));
+    let list=[], user=null;
+    try{
+      list=await S.listComments(c.code);
+      user=await S.getUser();
+    }catch(err){
+      section.innerHTML='<div class="notice warning">评论加载失败，请刷新重试。</div>';
+      return;
+    }
+    const cs=S.statsFromList(list);
+    const form = user ? commentForm(user) : loginGate();
+    section.innerHTML=`<div class="cm-overview">${overviewTemplate(cs)}${form}</div><div id="comment-list" class="cm-list">${commentList(list, user?user.id:null)}</div>`;
+
+    const loginBtn=document.getElementById("cm-login");
+    if(loginBtn)loginBtn.addEventListener("click", async()=>{
+      try{ await S.signInWithGitHub(); }
+      catch(err){ A.showToast("登录失败："+err.message); }
+    });
+    const logoutBtn=document.getElementById("cm-logout");
+    if(logoutBtn)logoutBtn.addEventListener("click", async()=>{
+      try{ await S.signOut(); location.reload(); }
+      catch(err){ A.showToast("退出失败："+err.message); }
+    });
     const submit=document.getElementById("cm-submit");
-    if(submit)submit.addEventListener("click",()=>{
-      const name=String((document.getElementById("cm-name")?.value||"")).trim();
-      const github=String((document.getElementById("cm-gh")?.value||"")).trim().replace(/^@/,"");
+    if(submit)submit.addEventListener("click", async()=>{
       const rating=Number(document.getElementById("cm-rating")?.value||0);
       const content=String((document.getElementById("cm-content")?.value||"")).trim();
-      if(!name){A.showToast("请填写昵称");return;}
-      if(!rating && !content){A.showToast("至少打分或写点内容");return;}
-      const remember=!!document.getElementById("cm-remember")?.checked;
-      saveProfile(remember?{name,github,remember}:{remember:false});
-      A.addComment(c.code,{name,github:github||"",rating,content});
-      A.showToast("已发布"); renderComments();
+      if(!rating && !content){ A.showToast("至少打分或写点内容"); return; }
+      submit.disabled=true;
+      try{
+        await S.addComment({ courseCode: c.code, rating, content });
+        A.showToast("已发布"); renderComments();
+      }catch(err){
+        if(err && (err.code==="NOT_LOGGED_IN" || err.code==="42501")){
+          A.showToast("请先登录"); renderComments();
+        } else {
+          A.showToast("发布失败："+(err.message||"未知错误"));
+          submit.disabled=false;
+        }
+      }
     });
+    document.querySelectorAll(".cm-del").forEach(b=>b.addEventListener("click", async()=>{
+      if(!confirm("删除该评论？")) return;
+      try{ await S.deleteComment(b.dataset.id); A.showToast("已删除"); renderComments(); }
+      catch(err){ A.showToast("删除失败："+(err.message||"未知错误")); }
+    }));
   }
   root.innerHTML=`
     <a class="back-link" href="index.html">← 返回选课台</a>

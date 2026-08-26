@@ -8,6 +8,15 @@
   let day="all";
   let search="";
   let selections=A.getSelections();
+  const S=window.SUPABASE;
+  let ratingMap={};
+  function buildRatingMap(list){
+    const byCode={};
+    list.forEach(x=>{ (byCode[x.course_code]=byCode[x.course_code]||[]).push(x); });
+    const map={};
+    Object.keys(byCode).forEach(code=>{ map[code]=S.statsFromList(byCode[code]); });
+    return map;
+  }
 
   const $=s=>document.querySelector(s);
   const list=$("#course-list");
@@ -43,19 +52,19 @@
       const selected=!!selections[c.code];
       const canAdd=!!c.planningEligible;
       const sched=A.scheduleText(c,selections[c.code]);
-      const cs=A.commentStats(c.code);
+      const cs=ratingMap[c.code] || {count:0,ratingCount:0,avg:0};
       const ratingLine=cs.ratingCount?`<span class="rating-line" title="平均打分 / 评论数">★ ${(Math.round(cs.avg*10)/10).toFixed(1)} <small>(${cs.ratingCount})</small></span>`:"";
       return `<article class="course-card ${selected?"is-selected":""}">
         <div class="card-top">
           <div class="badges">${A.categoryBadge(c)}${A.offeredBadge(c)}</div>
           <span class="credits">${c.credits} CU${Number(c.credits)!==1?"s":""}</span>
         </div>
-        <a class="course-name" href="course.html?code=${encodeURIComponent(c.code)}">${A.esc(A.displayName(c))}</a>
+        <a class="course-name" href="course.html?c=${encodeURIComponent(c.code)}">${A.esc(A.displayName(c))}</a>
         <p class="course-schedule">${A.esc(sched)}</p>
         ${c.instructor?`<p class="course-instructor">${A.esc(c.instructor)}</p>`:""}
         ${ratingLine?`<p class="course-rating">${ratingLine}</p>`:""}
         <div class="card-actions">
-          <a class="text-link" href="course.html?code=${encodeURIComponent(c.code)}">详情 / 评论</a>
+          <a class="text-link" href="course.html?c=${encodeURIComponent(c.code)}">详情 / 评论</a>
           ${canAdd?`<button class="button ${selected?"button-quiet":"button-primary"} add-btn" data-code="${A.esc(c.code)}">${selected?"移除":"加入课表"}</button>`:
           `<button class="button button-disabled" disabled>仅课程库</button>`}
         </div>
@@ -139,7 +148,7 @@
         const col=document.querySelector(`.day-col[data-day="${m.day}"]`); if(!col)return;
         const top=timeToY(m.start), bottom=timeToY(m.end);
         const block=document.createElement("a");
-        block.href=`course.html?code=${encodeURIComponent(code)}`;
+        block.href=`course.html?c=${encodeURIComponent(code)}`;
         block.className=`meeting ${color}`;
         block.style.top=top+"%";
         block.style.height=Math.max(3,bottom-top)+"%";
@@ -148,7 +157,7 @@
       });
     });
     const pending=codes.map(A.courseByCode).filter(c=>c && !(A.selectedSection(c,selections[c.code])?.meetings||[]).length);
-    $("#unscheduled").innerHTML=pending.length?`<strong>未排定 / SIS 待确认：</strong> ${pending.map(c=>`<a href="course.html?code=${encodeURIComponent(c.code)}">${A.esc(A.displayName(c))}</a>`).join(" · ")}`:"";
+    $("#unscheduled").innerHTML=pending.length?`<strong>未排定 / SIS 待确认：</strong> ${pending.map(c=>`<a href="course.html?c=${encodeURIComponent(c.code)}">${A.esc(A.displayName(c))}</a>`).join(" · ")}`:"";
   }
   function renderRegistration(){
     const state=A.registrationState(new Date());
@@ -194,6 +203,13 @@
     catch(_){prompt("复制以下内容：",text);}
   });
 
-  renderRegistration();
-  renderAll();
+  async function init(){
+    try{
+      ratingMap=buildRatingMap(await S.listAllComments());
+    }catch(_){ ratingMap={}; }
+    renderRegistration();
+    renderAll();
+  }
+
+  init();
 })();

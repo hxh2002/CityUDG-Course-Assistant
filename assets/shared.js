@@ -165,39 +165,6 @@
     });
     return checks;
   }
-  const COMMENT_KEY = "cityudg-ds-comments-v1";
-  function getComments() {
-    try {
-      const v = JSON.parse(localStorage.getItem(COMMENT_KEY) || "{}");
-      return v && typeof v === "object" ? v : {};
-    } catch (_) { return {}; }
-  }
-  function saveComments(v) {
-    localStorage.setItem(COMMENT_KEY, JSON.stringify(v));
-  }
-  function commentsFor(code) {
-    const all = getComments();
-    return Array.isArray(all[code]) ? all[code] : [];
-  }
-  function addComment(code, entry) {
-    const all = getComments();
-    if (!Array.isArray(all[code])) all[code] = [];
-    all[code].unshift({id: String(Date.now()) + Math.random().toString(36).slice(2,6), ts: Date.now(), ...entry});
-    saveComments(all);
-    return all[code];
-  }
-  function deleteComment(code, id) {
-    const all = getComments();
-    if (Array.isArray(all[code])) all[code] = all[code].filter(c => c.id !== id);
-    saveComments(all);
-    return all[code] || [];
-  }
-  function commentStats(code) {
-    const list = commentsFor(code);
-    const ratings = list.map(c => Number(c.rating)).filter(n => n > 0);
-    const avg = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length) : 0;
-    return { count: list.length, avg, ratingCount: ratings.length };
-  }
   function offeredBadge(c) {
     if(c.offeredSemA===true) return '<span class="badge offered">Sem A</span>';
     if(c.offeredSemA==="unknown") return '<span class="badge pending">SIS 待确认</span>';
@@ -232,7 +199,6 @@
     DATA,DAY_NAMES,CAT_NAMES,esc,displayName,courseByCode,getSelections,saveSelections,
     defaultSection,selectedSection,setCourse,removeCourse,toggleCourse,minutes,conflicts,
     selectionStats,ruleChecks,offeredBadge,categoryBadge,scheduleText,
-    showToast,registrationState,formatCNDate,
-    COMMENT_KEY,getComments,saveComments,commentsFor,addComment,deleteComment,commentStats
+    showToast,registrationState,formatCNDate
   };
 })();
