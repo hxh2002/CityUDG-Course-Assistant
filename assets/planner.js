@@ -43,17 +43,19 @@
       const selected=!!selections[c.code];
       const canAdd=!!c.planningEligible;
       const sched=A.scheduleText(c,selections[c.code]);
-      const rec=c.recommendation;
+      const cs=A.commentStats(c.code);
+      const ratingLine=cs.ratingCount?`<span class="rating-line" title="平均打分 / 评论数">★ ${(Math.round(cs.avg*10)/10).toFixed(1)} <small>(${cs.ratingCount})</small></span>`:"";
       return `<article class="course-card ${selected?"is-selected":""}">
         <div class="card-top">
-          <div class="badges">${A.categoryBadge(c)}${A.offeredBadge(c)}${A.recommendationBadge(rec)}</div>
+          <div class="badges">${A.categoryBadge(c)}${A.offeredBadge(c)}</div>
           <span class="credits">${c.credits} CU${Number(c.credits)!==1?"s":""}</span>
         </div>
         <a class="course-name" href="course.html?code=${encodeURIComponent(c.code)}">${A.esc(A.displayName(c))}</a>
         <p class="course-schedule">${A.esc(sched)}</p>
         ${c.instructor?`<p class="course-instructor">${A.esc(c.instructor)}</p>`:""}
+        ${ratingLine?`<p class="course-rating">${ratingLine}</p>`:""}
         <div class="card-actions">
-          <a class="text-link" href="course.html?code=${encodeURIComponent(c.code)}">详情</a>
+          <a class="text-link" href="course.html?code=${encodeURIComponent(c.code)}">详情 / 评论</a>
           ${canAdd?`<button class="button ${selected?"button-quiet":"button-primary"} add-btn" data-code="${A.esc(c.code)}">${selected?"移除":"加入课表"}</button>`:
           `<button class="button button-disabled" disabled>仅课程库</button>`}
         </div>
@@ -92,7 +94,10 @@
     $("#elec-credit").textContent=s.elective;
     $("#ur-credit").textContent=s.ur;
     $("#total-credit").textContent=s.total;
-    $("#selected-count").textContent=s.counts.total;
+    const selectedCountEl=$("#selected-count");
+    if(selectedCountEl)selectedCountEl.textContent=s.counts.total;
+    const tabCountEl=$("#selected-tab-count");
+    if(tabCountEl)tabCountEl.textContent=s.counts.total;
     const pct=Math.min(100,Math.round(s.total/target.total*100));
     $("#credit-progress").style.width=pct+"%";
     $("#credit-progress").setAttribute("aria-valuenow",String(pct));
@@ -115,7 +120,6 @@
   function renderTimetable(){
     const cols=$("#day-columns");
     cols.innerHTML=DAYS.map(day=>`<div class="day-col" data-day="${day}"></div>`).join("");
-    // hourly grid
     document.querySelectorAll(".day-col").forEach(col=>{
       for(let h=9;h<=21;h++){
         const line=document.createElement("span"); line.className="grid-line";
@@ -124,11 +128,13 @@
       }
     });
     const palette=["green","blue","amber","purple","olive","rose","teal","indigo"];
-    let idx=0;
-    Object.entries(selections).forEach(([code,sel])=>{
+    const order=["DSC5001","DSC5002","DSC5003"];
+    const codes=Object.keys(selections).sort((a,b)=>(order.indexOf(a)>-1?order.indexOf(a):99)-(order.indexOf(b)>-1?order.indexOf(b):99) || a.localeCompare(b));
+    codes.forEach((code,i)=>{
+      const sel=selections[code];
       const c=A.courseByCode(code); const sec=A.selectedSection(c,sel);
       if(!c || !sec)return;
-      const color=palette[idx++%palette.length];
+      const color=palette[i%palette.length];
       (sec.meetings||[]).forEach(m=>{
         const col=document.querySelector(`.day-col[data-day="${m.day}"]`); if(!col)return;
         const top=timeToY(m.start), bottom=timeToY(m.end);
@@ -141,7 +147,7 @@
         col.appendChild(block);
       });
     });
-    const pending=Object.keys(selections).map(A.courseByCode).filter(c=>c && !(A.selectedSection(c,selections[c.code])?.meetings||[]).length);
+    const pending=codes.map(A.courseByCode).filter(c=>c && !(A.selectedSection(c,selections[c.code])?.meetings||[]).length);
     $("#unscheduled").innerHTML=pending.length?`<strong>未排定 / SIS 待确认：</strong> ${pending.map(c=>`<a href="course.html?code=${encodeURIComponent(c.code)}">${A.esc(A.displayName(c))}</a>`).join(" · ")}`:"";
   }
   function renderRegistration(){
@@ -157,7 +163,6 @@
   }
   function renderAll(){
     renderList(); renderSelected(); renderStats(); renderRules(); renderTimetable();
-    $("#selected-tab-count").textContent=Object.keys(selections).length;
   }
 
   // controls
@@ -178,13 +183,6 @@
   }));
   $("#clear-selection").addEventListener("click",()=>{
     if(confirm("清空当前选课规划？")){ A.saveSelections({}); selections={}; renderAll(); }
-  });
-  $("#apply-preset").addEventListener("click",()=>{
-    const v=A.getSelections();
-    ["DSC5001","DSC5002","DSC5003","DSC6011","DSC6003"].forEach(code=>{
-      const c=A.courseByCode(code); v[code]={sectionId:A.defaultSection(c)};
-    });
-    A.saveSelections(v); selections=v; renderAll(); A.showToast("已应用“推荐一”：15 CUs，另需在 SIS 确认 1 CU UR");
   });
   $("#copy-plan").addEventListener("click",async()=>{
     const lines=Object.keys(selections).map(code=>{
