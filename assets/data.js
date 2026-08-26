@@ -145,17 +145,17 @@ window.DS_ASSISTANT_DATA = {
       "en": "Theory and Practice of Socialism with Chinese Characteristics in the New Era",
       "credits": 2,
       "category": "ur",
-      "offeredSemA": "unknown",
+      "offeredSemA": true,
       "planningEligible": true,
-      "requirement": "University Requirement 必修；全项目需修。Sem A 班会建议仅安排 1 门 UR、总计 16 CUs，因此是否本学期修本门需看 SIS。",
+      "requirement": "University Requirement 必修（2 CUs）；本学期 9 个并行班（Lecture 1216–1224），按个人 SIS 班号参加。",
       "prerequisites": "无明确先修要求",
       "sections": [],
+      "scheduleUnknown": true,
       "sources": [
-        "CIR / 入学班会 PPT"
+        "SIS 官网 / CIR / 入学班会 PPT"
       ],
       "notes": [
-        "完整培养方案中该课为 2 CUs。",
-        "附件周课表出现同名课程代码 IPS902，与 CIR 代码不一致；助手不自动视为同一课程，请以 SIS 为准。"
+        "本学期 9 个并行班，具体时段与教室以 SIS 为准。"
       ]
     },
     {
@@ -164,17 +164,18 @@ window.DS_ASSISTANT_DATA = {
       "en": "Dialectics of Nature",
       "credits": 1,
       "category": "ur",
-      "offeredSemA": "unknown",
+      "offeredSemA": true,
       "planningEligible": true,
       "choiceGroup": "ur_one_of_two",
       "requirement": "与 IP5903 二选一；全项目 University Requirement 的 1 CU 组成部分。",
       "prerequisites": "无明确先修要求",
       "sections": [],
+      "scheduleUnknown": true,
       "sources": [
-        "CIR / 入学班会 PPT"
+        "SIS 官网 / CIR / 入学班会 PPT"
       ],
       "notes": [
-        "第一学期 16 CUs 方案中的 1 CU UR 很可能来自 1 CU 思政选项，但现有资料未明确指定 IP5902 或 IP5903；必须以 SIS 实际开放为准。"
+        "本学期 1 个班（Lecture 1145），具体时段以 SIS 为准。"
       ]
     },
     {
@@ -194,6 +195,159 @@ window.DS_ASSISTANT_DATA = {
       ],
       "notes": [
         "第一学期 16 CUs 方案中的 1 CU UR 很可能来自 1 CU 思政选项，但现有资料未明确指定 IP5902 或 IP5903；必须以 SIS 实际开放为准。"
+      ]
+    },
+    {
+      "code": "EN1002P",
+      "zh": "英语强化课程",
+      "en": "English Enhancement Course",
+      "credits": 3,
+      "category": "public",
+      "offeredSemA": true,
+      "planningEligible": true,
+      "instructor": "LIN Yi",
+      "sections": [
+        {
+          "id": "MORNING",
+          "label": "周四上午班",
+          "meetings": [
+            {
+              "day": "R",
+              "start": "08:30",
+              "end": "11:20",
+              "type": "Lecture",
+              "room": "AC3-214",
+              "weeks": "常规周"
+            }
+          ]
+        },
+        {
+          "id": "EVENING",
+          "label": "周四晚班",
+          "meetings": [
+            {
+              "day": "R",
+              "start": "18:30",
+              "end": "21:20",
+              "type": "Lecture",
+              "room": "AC3-214",
+              "weeks": "常规周"
+            }
+          ]
+        }
+      ],
+      "prerequisites": "未标注",
+      "sources": [
+        "SIS 官网 / 完整周课表"
+      ],
+      "notes": [
+        "公共英语课（3 CUs），不计入专业 16 CUs；两个并行班按个人 SIS 班号参加。"
+      ]
+    },
+    {
+      "code": "PE5911",
+      "zh": "体育 5A",
+      "en": "Physical Education: 5A",
+      "credits": 1,
+      "category": "public",
+      "offeredSemA": true,
+      "planningEligible": true,
+      "sections": [
+        {
+          "id": "KARATE",
+          "label": "Karate 空手道",
+          "meetings": [
+            { "day": "R", "start": "16:00", "end": "17:50", "type": "PE", "room": "Gym, Student Residence Hall 1", "weeks": "常规周" }
+          ]
+        },
+        {
+          "id": "BASKETBALL",
+          "label": "Basketball 篮球",
+          "meetings": [
+            { "day": "R", "start": "16:00", "end": "17:50", "type": "PE", "room": "Outdoor Basketball Yard OSY1-101", "weeks": "常规周" }
+          ]
+        },
+        {
+          "id": "BASEBALL",
+          "label": "Baseball 棒球",
+          "meetings": [
+            { "day": "R", "start": "16:00", "end": "17:50", "type": "PE", "room": "Outdoor Football Yard OSY-104", "weeks": "常规周" }
+          ]
+        },
+        {
+          "id": "ORIENTEERING",
+          "label": "Orienteering 定向越野",
+          "meetings": [
+            { "day": "R", "start": "16:00", "end": "17:50", "type": "PE", "room": "待定", "weeks": "常规周" }
+          ]
+        },
+        {
+          "id": "VOLLEYBALL",
+          "label": "Volleyball 排球",
+          "meetings": [
+            { "day": "R", "start": "18:30", "end": "20:20", "type": "PE", "room": "Outdoor Volleyball Yard OSY-105", "weeks": "常规周" }
+          ]
+        }
+      ],
+      "prerequisites": "未标注",
+      "sources": [
+        "SIS 官网"
+      ],
+      "notes": [
+        "公共体育课（1 CU，Graded No GPA），不计入专业 16 CUs。"
+      ]
+    },
+    {
+      "code": "PE6911",
+      "zh": "体育 6A",
+      "en": "Physical Education: 6A",
+      "credits": 1,
+      "category": "public",
+      "offeredSemA": true,
+      "planningEligible": true,
+      "sections": [
+        {
+          "id": "BASKETBALL",
+          "label": "Basketball 篮球",
+          "meetings": [
+            { "day": "R", "start": "16:00", "end": "17:50", "type": "PE", "room": "Outdoor Basketball Yard OSY1-102", "weeks": "常规周" }
+          ]
+        },
+        {
+          "id": "KARATE",
+          "label": "Karate 空手道",
+          "meetings": [
+            { "day": "R", "start": "16:00", "end": "17:50", "type": "PE", "room": "Gym, Student Residence Hall 1", "weeks": "常规周" }
+          ]
+        },
+        {
+          "id": "BASEBALL",
+          "label": "Baseball 棒球",
+          "meetings": [
+            { "day": "R", "start": "16:00", "end": "17:50", "type": "PE", "room": "Outdoor Football Yard OSY-104", "weeks": "常规周" }
+          ]
+        },
+        {
+          "id": "ORIENTEERING",
+          "label": "Orienteering 定向越野",
+          "meetings": [
+            { "day": "R", "start": "16:00", "end": "17:50", "type": "PE", "room": "待定", "weeks": "常规周" }
+          ]
+        },
+        {
+          "id": "VOLLEYBALL",
+          "label": "Volleyball 排球",
+          "meetings": [
+            { "day": "R", "start": "18:30", "end": "20:20", "type": "PE", "room": "Outdoor Volleyball Yard OSY-105", "weeks": "常规周" }
+          ]
+        }
+      ],
+      "prerequisites": "未标注",
+      "sources": [
+        "SIS 官网"
+      ],
+      "notes": [
+        "公共体育课（1 CU，Graded No GPA），不计入专业 16 CUs。"
       ]
     },
     {

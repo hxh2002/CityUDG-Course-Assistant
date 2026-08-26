@@ -4,8 +4,8 @@
   const DATA = window.DS_ASSISTANT_DATA;
   const STORAGE_KEY = "cityudg-ds-planner-v1";
   const DAY_NAMES = {M:"周一",T:"周二",W:"周三",R:"周四",F:"周五",S:"周六",U:"周日"};
-  const CAT_NAMES = {core:"核心",elective:"选修",ur:"思政 / UR",grii:"研究·实习·创新"};
-  const CAT_CREDIT_KEYS = {core:"core",elective:"elective",ur:"ur",grii:"grii"};
+  const CAT_NAMES = {core:"核心",elective:"选修",ur:"思政 / UR",grii:"研究·实习·创新",public:"公共课"};
+  const CAT_CREDIT_KEYS = {core:"core",elective:"elective",ur:"ur",grii:"grii",public:"public"};
 
   function esc(v) {
     return String(v ?? "").replace(/[&<>"']/g, ch => ({
@@ -93,12 +93,13 @@
     return out;
   }
   function selectionStats(selections) {
-    const s={core:0,elective:0,ur:0,grii:0,total:0,counts:{core:0,elective:0,ur:0,grii:0,total:0}};
+    const s={core:0,elective:0,ur:0,grii:0,public:0,total:0,counts:{core:0,elective:0,ur:0,grii:0,public:0,total:0}};
     Object.keys(selections).forEach(code=>{
       const c=courseByCode(code); if(!c)return;
-      s[c.category]=(s[c.category]||0)+Number(c.credits||0);
-      s.total+=Number(c.credits||0);
-      s.counts[c.category]=(s.counts[c.category]||0)+1; s.counts.total++;
+      const cat=c.category||"other";
+      s[cat]=(s[cat]||0)+Number(c.credits||0);
+      if(cat!=="public") s.total+=Number(c.credits||0);
+      s.counts[cat]=(s.counts[cat]||0)+1; s.counts.total++;
     });
     return s;
   }
@@ -121,20 +122,36 @@
       text:`当前 ${semElectives.length} 门；班会建议选择 2 门（6 CUs）。`
     });
     const urCodes=Object.keys(selections).filter(code=>courseByCode(code)?.category==="ur");
-    const hasBoth=urCodes.includes("IP5902") && urCodes.includes("IP5903");
+    const hasIP5901=urCodes.includes("IP5901");
+    const hasIP5902=urCodes.includes("IP5902");
+    const hasIP5903=urCodes.includes("IP5903");
+    const hasBoth=hasIP5902 && hasIP5903;
+    const urDone=hasIP5901 && (hasIP5902||hasIP5903);
+    const urMissing=[];
+    if(!hasIP5901)urMissing.push("IP5901（2 CUs）");
+    if(!hasIP5902 && !hasIP5903)urMissing.push("IP5902/IP5903 二选一（1 CU）");
     checks.push({
-      ok:urCodes.length>0 && !hasBoth,
-      level:hasBoth?"danger":(urCodes.length?"info":"warn"),
+      ok:urDone && !hasBoth,
+      level:hasBoth?"danger":(urDone?"ok":"warn"),
       title:"思政 / University Requirement",
-      text:hasBoth ? "IP5902 与 IP5903 为二选一，不能按毕业要求同时作为该 1 CU 选项。" :
-        (urCodes.length ? `已规划 ${stats.ur} CU；具体本学期开放课程与班号仍须在 SIS 核实。` :
-        "尚未规划。Sem A 建议总计 16 CUs，其中含 1 CU University Requirement；现有资料未明确指定 IP5902 或 IP5903，需看 SIS。")
+      text:hasBoth ? "IP5902 与 IP5903 为二选一，不能同时计入 UR。" :
+        (urDone ? "UR 3 CUs 已规划完整：IP5901（2 CUs）+ IP5902/IP5903 二选一（1 CU）。" :
+        `尚未补齐：${urMissing.join("、")}。University Requirement 共 3 CUs（IP5901 2 CUs 必修 + IP5902/IP5903 二选一 1 CU）。`)
     });
     checks.push({
       ok:stats.total===16,
       level:stats.total===16?"ok":(stats.total>17?"danger":"info"),
       title:"Semester A 总学分",
       text:`当前 ${stats.total} CUs；项目班会推荐 16 CUs，一般 Semester A/B 学分负荷为 6–17 CUs。`
+    });
+    const publicCodes=Object.keys(selections).filter(code=>courseByCode(code)?.category==="public");
+    checks.push({
+      ok:true,
+      level:"info",
+      title:"公共课（英语 / 体育）",
+      text:publicCodes.length
+        ? `已规划 ${stats.public} CU 公共课（不计入专业 16 CUs）。`
+        : "英语（EN1002P）与体育（PE5911/PE6911）为额外公共课，不计入专业 16 CUs，按需选择。"
     });
     const conf=conflicts(selections);
     checks.push({
