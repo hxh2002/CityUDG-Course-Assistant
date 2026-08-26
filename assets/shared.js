@@ -122,11 +122,8 @@
       text:`当前 ${semElectives.length} 门；班会建议选择 2 门（6 CUs）。`
     });
     const urCodes=Object.keys(selections).filter(code=>courseByCode(code)?.category==="ur");
-    const hasIP5901=urCodes.includes("IP5901");
-    const hasIP5902=urCodes.includes("IP5902");
-    const hasIP5903=urCodes.includes("IP5903");
 
-    // 本学期思政：建议 1 门
+    // 本学期思政：建议 1 门（IP5902/IP5903 二选一只需毕业前完成，不强制第一学期）
     const semUrCodes=urCodes.filter(code=>courseByCode(code)?.offeredSemA===true);
     let semUrText;
     if(semUrCodes.length===0){
@@ -142,21 +139,6 @@
       level:semUrCodes.length===1?"ok":(semUrCodes.length>1?"warn":"info"),
       title:"本学期思政课（1 门）",
       text:semUrText
-    });
-
-    // 整个项目 UR 完整性
-    const hasBothOne=hasIP5902 && hasIP5903;
-    const urDone=hasIP5901 && (hasIP5902||hasIP5903);
-    const urMissing=[];
-    if(!hasIP5901)urMissing.push("IP5901（2 CUs 必修）");
-    if(!hasIP5902 && !hasIP5903)urMissing.push("IP5902/IP5903 二选一（1 CU）");
-    checks.push({
-      ok:urDone && !hasBothOne,
-      level:hasBothOne?"danger":(urDone?"ok":"info"),
-      title:"整个项目 University Requirement",
-      text:hasBothOne ? "IP5902 与 IP5903 为二选一，不能同时计入 UR。" :
-        (urDone ? "UR 3 CUs 已规划完整：IP5901（2 CUs）+ IP5902/IP5903 二选一（1 CU）。" :
-        `整个项目尚需 3 CUs UR，目前缺：${urMissing.join("、")}。`)
     });
 
     const totalOk=stats.total===16 || stats.total===17;

@@ -22,7 +22,6 @@
 2. 2026/27 Semester A / DS TPG 学期总览、课程目录、完整周课表、教材对应
 3. 研究生学术管理讲座材料
 4. MSc Data Science 官方培养方案网页截图 / CIR
-5. 会议整理与录音摘要
 
 动态信息优先级：**SIS / 最新正式通知 > CIR / ARRO / Course Catalogue > 班会口头提醒**。
 

@@ -83,6 +83,6 @@
     <section class="guide-section">
       <h2>九、资料口径</h2>
       <ul class="guide-list">${D.sources.map(x=>`<li>${A.esc(x)}</li>`).join("")}</ul>
-      <div class="notice"><strong>优先级：</strong>SIS / 最新正式通知 ＞ CIR / ARRO / Course Catalogue ＞ 班会口头提醒。对资料中的代码或课程名冲突，本助手只提示，不擅自合并。</div>
+      <div class="notice"><strong>优先级：</strong>SIS / 最新正式通知 ＞ CIR / ARRO / Course Catalogue ＞ 班会口头提醒。</div>
     </section>`;
 })();

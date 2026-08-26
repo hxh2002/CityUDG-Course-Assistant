@@ -137,8 +137,7 @@ window.DS_ASSISTANT_DATA = {
     "26级 Data Science 入学班会（2026-08-24）",
     "2026/27 Semester A / DS TPG 学期总览、课程目录、完整周课表、教材对应",
     "研究生学术管理讲座材料",
-    "MSc Data Science 官方培养方案网页截图 / CIR",
-    "用户提供的会议整理与录音摘要（口头提醒仅作补充）"
+    "MSc Data Science 官方培养方案网页截图 / CIR"
   ],
   "courses": [
     {
@@ -151,13 +150,69 @@ window.DS_ASSISTANT_DATA = {
       "planningEligible": true,
       "requirement": "University Requirement 必修（2 CUs）。本学期可选作 Semester A 的 1 门思政，选则本学期合计 17 CUs；后续整个项目仍需补 IP5902/IP5903 二选一（1 CU）。",
       "prerequisites": "无明确先修要求",
-      "sections": [],
-      "scheduleUnknown": true,
+      "sections": [
+        {
+          "id": "WED_EVENING",
+          "label": "周三晚班（18:30–20:20，6 个并行班）",
+          "meetings": [
+            {
+              "day": "W",
+              "start": "18:30",
+              "end": "20:20",
+              "type": "Lecture",
+              "room": "LIB-101 / AC5-515 / AC4-416 / AC4-417",
+              "weeks": "常规周"
+            }
+          ]
+        },
+        {
+          "id": "TUE_AFTERNOON",
+          "label": "周二班（14:00–15:50）",
+          "meetings": [
+            {
+              "day": "T",
+              "start": "14:00",
+              "end": "15:50",
+              "type": "Lecture",
+              "room": "LIB-101",
+              "weeks": "常规周"
+            }
+          ]
+        },
+        {
+          "id": "THU_0830",
+          "label": "周四上午班 A（08:30–10:20）",
+          "meetings": [
+            {
+              "day": "R",
+              "start": "08:30",
+              "end": "10:20",
+              "type": "Lecture",
+              "room": "LIB-101",
+              "weeks": "常规周"
+            }
+          ]
+        },
+        {
+          "id": "THU_1030",
+          "label": "周四上午班 B（10:30–12:20）",
+          "meetings": [
+            {
+              "day": "R",
+              "start": "10:30",
+              "end": "12:20",
+              "type": "Lecture",
+              "room": "LIB-101",
+              "weeks": "常规周"
+            }
+          ]
+        }
+      ],
       "sources": [
         "SIS 官网 / CIR / 入学班会 PPT"
       ],
       "notes": [
-        "本学期 9 个并行班，具体时段与教室以 SIS 为准。",
+        "本学期 9 个并行班，具体班号与教室以 SIS 为准；以上为周课表整理的班次时段。",
         "周二 14:00–15:50 班与 DSC5002 冲突，建议选周三 18:30–20:20 班。"
       ]
     },
