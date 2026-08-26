@@ -177,9 +177,6 @@
     const avg = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length) : 0;
     return { count: list.length, avg, ratingCount: ratings.length };
   }
-  function recommendationBadge() {
-    return "";
-  }
   function offeredBadge(c) {
     if(c.offeredSemA===true) return '<span class="badge offered">Sem A</span>';
     if(c.offeredSemA==="unknown") return '<span class="badge pending">SIS 待确认</span>';
@@ -213,7 +210,7 @@
   window.DSA={
     DATA,DAY_NAMES,CAT_NAMES,esc,displayName,courseByCode,getSelections,saveSelections,
     defaultSection,selectedSection,setCourse,removeCourse,toggleCourse,minutes,conflicts,
-    selectionStats,ruleChecks,recommendationBadge,offeredBadge,categoryBadge,scheduleText,
+    selectionStats,ruleChecks,offeredBadge,categoryBadge,scheduleText,
     showToast,registrationState,formatCNDate,
     COMMENT_KEY,getComments,saveComments,commentsFor,addComment,deleteComment,commentStats
   };

@@ -247,17 +247,7 @@ window.DS_ASSISTANT_DATA = {
           "isbn": "9781003456285",
           "note": "附件教材表转录"
         }
-      ],
-      "recommendation": {
-        "level": "required",
-        "verdict": "本学期核心必选",
-        "summary": "2026/27 Semester A 新生开设的三门核心课之一，应优先确保注册成功。",
-        "tags": [
-          "核心课",
-          "机器学习基础",
-          "3 CUs"
-        ]
-      }
+      ]
     },
     {
       "code": "DSC5002",
@@ -289,18 +279,7 @@ window.DS_ASSISTANT_DATA = {
       "sources": [
         "Sem A Course List / 完整周课表 / CIR"
       ],
-      "textbooks": [],
-      "recommendation": {
-        "level": "required",
-        "verdict": "本学期核心必选",
-        "summary": "2026/27 Semester A 新生开设的三门核心课之一，应优先确保注册成功。",
-        "tags": [
-          "核心课",
-          "EDA",
-          "可视化",
-          "3 CUs"
-        ]
-      }
+      "textbooks": []
     },
     {
       "code": "DSC5003",
@@ -340,17 +319,7 @@ window.DS_ASSISTANT_DATA = {
       "sources": [
         "Sem A Course List / 完整周课表 / CIR"
       ],
-      "textbooks": [],
-      "recommendation": {
-        "level": "required",
-        "verdict": "本学期核心必选",
-        "summary": "2026/27 Semester A 新生开设的三门核心课之一，应优先确保注册成功。",
-        "tags": [
-          "核心课",
-          "数据管理",
-          "3 CUs"
-        ]
-      }
+      "textbooks": []
     },
     {
       "code": "DSC6001",
@@ -424,19 +393,7 @@ window.DS_ASSISTANT_DATA = {
           "isbn": "978-0-470-31794-5",
           "note": "2nd Edition"
         }
-      ],
-      "recommendation": {
-        "level": "recommended",
-        "verdict": "优先推荐 · 通用技术底座",
-        "summary": "从培养方案与教材定位看，这门课强化概率统计与不确定性推断，和统计机器学习形成互补；适合尚未锁定细分方向、希望打牢数据科学统计基础的学生。",
-        "basis": "助手依据课程名称、教材与培养方案作出的方向性分析，不是官方难度/给分评价。",
-        "tags": [
-          "贝叶斯",
-          "统计推断",
-          "不确定性",
-          "推荐一"
-        ]
-      }
+      ]
     },
     {
       "code": "DSC6004",
@@ -471,18 +428,7 @@ window.DS_ASSISTANT_DATA = {
       "sources": [
         "Sem A Course List / 完整周课表 / CIR"
       ],
-      "textbooks": [],
-      "recommendation": {
-        "level": "directional",
-        "verdict": "应用型推荐",
-        "summary": "课程主题明显面向智慧城市与 AI 应用。若你希望接触城市计算、智慧交通、IoT 或 AI 行业应用，可提高优先级；若目标尚未确定，通用基础课的迁移性更强。",
-        "basis": "助手依据课程标题与培养方案作出的方向性分析。",
-        "tags": [
-          "智慧城市",
-          "AI应用",
-          "场景导向"
-        ]
-      }
+      "textbooks": []
     },
     {
       "code": "DSC6007",
@@ -537,18 +483,7 @@ window.DS_ASSISTANT_DATA = {
           "isbn": "978-0-262-03924-6",
           "note": "附件教材表转录"
         }
-      ],
-      "recommendation": {
-        "level": "directional",
-        "verdict": "方向型推荐 · 强化学习",
-        "summary": "适合已明确对强化学习、Agent、机器人或序贯决策感兴趣的学生。若尚未确定细分方向，建议先比较其方向性与优化/贝叶斯课程的通用性。",
-        "basis": "助手依据课程标题与教材定位作出的方向性分析。",
-        "tags": [
-          "强化学习",
-          "动态规划",
-          "AI方向"
-        ]
-      }
+      ]
     },
     {
       "code": "DSC6011",
@@ -625,19 +560,7 @@ window.DS_ASSISTANT_DATA = {
           "isbn": "978-0-521-83378-3",
           "note": "Cambridge University Press；附件版次字段建议再向任课教师核对"
         }
-      ],
-      "recommendation": {
-        "level": "recommended",
-        "verdict": "优先推荐 · 通用技术底座",
-        "summary": "优化是机器学习、运筹、金融与后续算法课程常见的底层工具。若目前尚未锁定细分方向，这门课具有较强迁移性，也是“推荐一”的首选选修。",
-        "basis": "助手依据课程标题、教材与培养方案作出的方向性分析，不是官方难度/给分评价。",
-        "tags": [
-          "优化",
-          "数学基础",
-          "通用性",
-          "推荐一"
-        ]
-      }
+      ]
     },
     {
       "code": "DSC8011",
@@ -668,19 +591,7 @@ window.DS_ASSISTANT_DATA = {
           "isbn": "9780691158648",
           "note": "Princeton University Press / 2018"
         }
-      ],
-      "recommendation": {
-        "level": "directional",
-        "verdict": "跨学科方向型",
-        "summary": "教材与课程定位更偏社会研究、数字社会与数据科学的社会维度。适合计算社会科学、公共政策、用户研究等兴趣；若目标是典型 ML/算法岗位，可先比较技术基础型选修。",
-        "basis": "助手依据教材与课程名称作出的方向性分析。",
-        "tags": [
-          "社会研究",
-          "数字社会",
-          "跨学科",
-          "时段待确认"
-        ]
-      }
+      ]
     },
     {
       "code": "CS5285",
