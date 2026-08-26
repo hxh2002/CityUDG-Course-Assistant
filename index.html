@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="香港城市大学（东莞）2026级数据科学理学硕士 Semester A 选课与排课辅助工具">
+<title>CityU DG DS 选课助手 · 2026/27 Semester A</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head><body>
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="CityU DG DS 选课助手首页">
+    <span class="brand-mark">DG</span>
+    <span><strong>DS 选课助手</strong><small>香港城市大学（东莞） · 2026/27 Semester A</small></span>
+  </a>
+  <nav class="main-nav">
+    <a class="active" href="index.html">排课台</a>
+    <a class="" href="guide.html">培养方案</a>
+  </nav>
+</header>
+
+<main>
+  <section class="page-intro">
+    <div><span class="eyebrow">2026 COHORT · MS DATA SCIENCE</span>
+      <h1 class="page-title">自助排课台</h1>
+      <p>以东莞校区 DS 培养方案与 2026/27 Semester A 资料为基础。课程名称统一显示为“中文名（课号 英文名）”。已知并行班可切换，自动检测时间冲突并核对第一学期 16 CUs 建议结构。</p>
+    </div>
+    <div class="intro-stats">
+      <div><strong>45</strong><span>毕业总学分</span></div>
+      <div><strong>33</strong><span>Year 1 目标</span></div>
+      <div><strong>16</strong><span>Sem A 建议</span></div>
+    </div>
+  </section>
+
+  <div id="registration-state" class="registration-strip"></div>
+
+  <section class="planner-shell">
+    <aside class="course-sidebar">
+      <div class="sidebar-head">
+        <div class="segmented">
+          <button class="segment active" data-panel="browse">浏览课程</button>
+          <button class="segment" data-panel="selected">已选 <span id="selected-tab-count">0</span></button>
+        </div>
+      </div>
+      <div id="browse-panel" class="sidebar-panel">
+        <label class="search-box"><span class="sr-only">搜索课程</span><input id="course-search" type="search" placeholder="搜索中文名、课号或英文名"></label>
+        <div class="filter-label">课程范围</div>
+        <div class="filter-row">
+          <button class="pill active" data-view="semester">本学期规划</button>
+          <button class="pill" data-view="all">全部培养方案</button>
+        </div>
+        <div class="filter-label">类别</div>
+        <div class="filter-row">
+          <button class="pill active" data-category="all">全部</button>
+          <button class="pill" data-category="core">核心</button>
+          <button class="pill" data-category="elective">选修</button>
+          <button class="pill" data-category="ur">思政 / UR</button>
+          <button class="pill" data-category="grii">GRII</button>
+        </div>
+        <div class="filter-label">上课日</div>
+        <div class="filter-row">
+          <button class="pill active" data-day="all">全部</button>
+          <button class="pill" data-day="M">一</button><button class="pill" data-day="T">二</button>
+          <button class="pill" data-day="W">三</button><button class="pill" data-day="R">四</button>
+          <button class="pill" data-day="F">五</button><button class="pill" data-day="S">六</button>
+          <button class="pill" data-day="pending">待定</button>
+        </div>
+        <div id="course-list" class="course-list"></div>
+      </div>
+      <div id="selected-panel" class="sidebar-panel" hidden><div id="selected-list" class="selected-list"></div></div>
+    </aside>
+
+    <div class="timetable-panel">
+      <div class="preset-bar">
+        <p><strong>推荐一 · 通用技术底座：</strong>三门核心课 + 数据科学优化 + 贝叶斯数据分析 = 15 CUs；再到 SIS 确认 1 CU University Requirement。</p>
+        <button id="apply-preset" class="button button-primary">应用推荐一</button>
+      </div>
+      <div class="toolbar">
+        <div>
+          <span class="eyebrow">MY SEMESTER A</span><h2>我的课表</h2>
+          <div class="credit-summary">
+            <span>核心 <strong id="core-credit">0</strong>/9</span>
+            <span>选修 <strong id="elec-credit">0</strong>/6</span>
+            <span>UR <strong id="ur-credit">0</strong>/1</span>
+            <span>总计 <strong id="total-credit">0</strong>/16 CUs</span>
+          </div>
+          <div class="progress"><span id="credit-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></span></div>
+        </div>
+        <div class="toolbar-actions">
+          <span id="conflict-status" class="conflict-status is-clear">暂无已知冲突</span>
+          <button id="copy-plan" class="button button-quiet">复制清单</button>
+          <button id="clear-selection" class="button button-quiet">清空</button>
+        </div>
+      </div>
+
+      <div class="timetable-scroll">
+        <div class="timetable">
+          <div class="corner">GMT+8</div>
+          <div class="day-heading"><strong>周一</strong><span>MON</span></div>
+          <div class="day-heading"><strong>周二</strong><span>TUE</span></div>
+          <div class="day-heading"><strong>周三</strong><span>WED</span></div>
+          <div class="day-heading"><strong>周四</strong><span>THU</span></div>
+          <div class="day-heading"><strong>周五</strong><span>FRI</span></div>
+          <div class="day-heading"><strong>周六</strong><span>SAT</span></div>
+          <div id="time-axis" class="time-axis">
+            <span style="top:3.896%">09:00</span><span style="top:11.688%">10:00</span><span style="top:19.481%">11:00</span><span style="top:27.273%">12:00</span><span style="top:35.065%">13:00</span><span style="top:42.857%">14:00</span><span style="top:50.649%">15:00</span><span style="top:58.442%">16:00</span><span style="top:66.234%">17:00</span><span style="top:74.026%">18:00</span><span style="top:81.818%">19:00</span><span style="top:89.610%">20:00</span><span style="top:97.403%">21:00</span>
+          </div>
+          <div id="day-columns" class="day-columns"></div>
+        </div>
+      </div>
+      <div id="unscheduled" class="unscheduled"></div>
+      <div id="rule-checks" class="rules-panel"></div>
+      <p class="muted-note">提示：数据科学优化（DSC6011 Optimization for Data Science）存在周二/周三并行班；周三班与动态规划与强化学习（DSC6007 Dynamic Programming and Reinforcement Learning）的周六时段仅为 Week 1 临时调整。数据科学的社会基础（DSC8011 Social Foundations of Data Science）在附件周课表未列时段，因此不会参与自动冲突判断。</p>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><span>资料快照：2026-08-24 · 非官方辅助工具；最终以 SIS / ARRO / 任课教师通知为准。</span><span>交互思路参考公开项目 CityUDS-courses-2627，本站代码为独立实现。</span></footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="assets/data.js"></script><script src="assets/shared.js"></script><script src="assets/planner.js"></script>
+</body></html>
