@@ -17,6 +17,8 @@ a{color:inherit} button,input,select{font:inherit}.site-header{
 }.brand strong{display:block;font-size:16px}.brand small{display:block;color:var(--muted);margin-top:2px}
 .main-nav{display:flex;align-items:center;gap:7px}.main-nav a{padding:9px 12px;border-radius:9px;text-decoration:none;color:var(--muted);font-weight:650}
 .main-nav a.active,.main-nav a:hover{background:var(--soft);color:var(--ink)}
+.main-nav a.nav-github{background:#1b1f23;color:#fff;font-weight:700;display:inline-flex;align-items:center;gap:5px;margin-left:4px}
+.main-nav a.nav-github:hover{background:#000;color:#fff}
 main{max-width:1460px;margin:0 auto;padding:28px 24px 50px}.page-intro{
   display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:18px
 }.eyebrow{font-size:11px;letter-spacing:.15em;color:var(--red);font-weight:800;text-transform:uppercase}.page-title{font-size:34px;margin:5px 0 6px;letter-spacing:-.02em}
