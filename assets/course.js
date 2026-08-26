@@ -84,11 +84,19 @@
       <button id="cm-login" class="button button-primary">使用 GitHub 登录</button>
     </div>`;
   }
+  function starCta(){
+    const repo = D.links && D.links.github ? D.links.github : "https://github.com/hxh2002/CityUDG-Course-Assistant";
+    return `<div class="star-cta">
+      <div><strong>喜欢这个工具？</strong><span>去 GitHub 给仓库点个 Star，支持我们持续更新。</span></div>
+      <a class="button star-btn" href="${A.esc(repo)}" target="_blank" rel="noreferrer">★ Star 仓库</a>
+    </div>`;
+  }
   function commentForm(user){
     const meta = user.user_metadata || {};
     const gh = (meta.user_name || meta.preferred_username || "").trim();
     const nm = meta.user_name || meta.full_name || meta.name || user.email || "GitHub 用户";
     return `<div class="cm-form-box">
+      ${starCta()}
       <div class="cm-head" style="margin-bottom:12px">
         <div class="cm-who">${avatarFor(gh,34)} <span>以 ${A.esc(nm)}${gh?` (<a class="cm-gh-link" href="https://github.com/${encodeURIComponent(gh)}" target="_blank" rel="noreferrer">@${A.esc(gh)}</a>)`:""} 的身份评论</span></div>
         <button id="cm-logout" class="button button-quiet">退出登录</button>

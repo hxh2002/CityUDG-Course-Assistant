@@ -131,7 +131,8 @@ window.DS_ASSISTANT_DATA = {
     "sis": "https://sis.cityu-dg.edu.cn/sso/login.html",
     "programme": "https://arro.cityu-dg.edu.cn/2026/04/16/master-of-science-in-data-science-2026/",
     "syllabus": "https://www.cityu.edu.hk/catalogue/pg/202627/programme/MSDS1.htm",
-    "arro": "https://arro.cityu-dg.edu.cn/"
+    "arro": "https://arro.cityu-dg.edu.cn/",
+    "github": "https://github.com/hxh2002/CityUDG-Course-Assistant"
   },
   "sources": [
     "26级 Data Science 入学班会（2026-08-24）",
