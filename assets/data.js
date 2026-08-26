@@ -6,7 +6,7 @@ window.DS_ASSISTANT_DATA = {
     "semester": "2026/27 Semester A",
     "campus": "香港城市大学（东莞）",
     "timezone": "Asia/Shanghai (GMT+8)",
-    "dataAsOf": "2026-08-24",
+    "dataAsOf": "2026-08-26",
     "version": "1.0.0"
   },
   "registration": [
@@ -52,7 +52,9 @@ window.DS_ASSISTANT_DATA = {
       "core": 9,
       "elective": 6,
       "ur": 1,
-      "total": 16
+      "total": 16,
+      "totalMax": 17,
+      "urNote": "思政选 IP5902/IP5903（1 CU）合计 16 CUs；选 IP5901（2 CUs）合计 17 CUs。"
     },
     "semesterLoad": "Semester A/B 一般 6–17 CUs；Summer Term 0–7 CUs，超限需书面审批。"
   },
@@ -147,7 +149,7 @@ window.DS_ASSISTANT_DATA = {
       "category": "ur",
       "offeredSemA": true,
       "planningEligible": true,
-      "requirement": "University Requirement 必修（2 CUs）；本学期 9 个并行班（Lecture 1216–1224），按个人 SIS 班号参加。",
+      "requirement": "University Requirement 必修（2 CUs）。本学期可选作 Semester A 的 1 门思政，选则本学期合计 17 CUs；后续整个项目仍需补 IP5902/IP5903 二选一（1 CU）。",
       "prerequisites": "无明确先修要求",
       "sections": [],
       "scheduleUnknown": true,
@@ -155,7 +157,8 @@ window.DS_ASSISTANT_DATA = {
         "SIS 官网 / CIR / 入学班会 PPT"
       ],
       "notes": [
-        "本学期 9 个并行班，具体时段与教室以 SIS 为准。"
+        "本学期 9 个并行班，具体时段与教室以 SIS 为准。",
+        "周二 14:00–15:50 班与 DSC5002 冲突，建议选周三 18:30–20:20 班。"
       ]
     },
     {
@@ -167,7 +170,7 @@ window.DS_ASSISTANT_DATA = {
       "offeredSemA": true,
       "planningEligible": true,
       "choiceGroup": "ur_one_of_two",
-      "requirement": "与 IP5903 二选一；全项目 University Requirement 的 1 CU 组成部分。",
+      "requirement": "与 IP5903 二选一（1 CU）。本学期可选作 Semester A 的 1 门思政，选则本学期合计 16 CUs；后续整个项目仍需补 IP5901（2 CUs）。",
       "prerequisites": "无明确先修要求",
       "sections": [],
       "scheduleUnknown": true,
@@ -184,17 +187,17 @@ window.DS_ASSISTANT_DATA = {
       "en": "Marxism and Methodology of Social Sciences",
       "credits": 1,
       "category": "ur",
-      "offeredSemA": "unknown",
+      "offeredSemA": true,
       "planningEligible": true,
       "choiceGroup": "ur_one_of_two",
-      "requirement": "与 IP5902 二选一；全项目 University Requirement 的 1 CU 组成部分。",
+      "requirement": "与 IP5902 二选一（1 CU）。本学期可选作 Semester A 的 1 门思政，选则本学期合计 16 CUs；后续整个项目仍需补 IP5901（2 CUs）。",
       "prerequisites": "无明确先修要求",
       "sections": [],
       "sources": [
         "CIR / 入学班会 PPT"
       ],
       "notes": [
-        "第一学期 16 CUs 方案中的 1 CU UR 很可能来自 1 CU 思政选项，但现有资料未明确指定 IP5902 或 IP5903；必须以 SIS 实际开放为准。"
+        "本学期与 IP5902 二选一（1 CU）；具体班次与时段以 SIS 为准。"
       ]
     },
     {
@@ -241,7 +244,7 @@ window.DS_ASSISTANT_DATA = {
         "SIS 官网 / 完整周课表"
       ],
       "notes": [
-        "公共英语课（3 CUs），不计入专业 16 CUs；两个并行班按个人 SIS 班号参加。"
+        "公共英语课（SIS 课程字段 3 CUs），不计入 DS 学分，可自由选修；两个并行班按个人 SIS 班号参加。"
       ]
     },
     {
@@ -294,7 +297,7 @@ window.DS_ASSISTANT_DATA = {
         "SIS 官网"
       ],
       "notes": [
-        "公共体育课（1 CU，Graded No GPA），不计入专业 16 CUs。"
+        "公共体育课（SIS 课程字段 1 CU，Graded No GPA），不计入 DS 学分，可自由选修。"
       ]
     },
     {
@@ -347,7 +350,7 @@ window.DS_ASSISTANT_DATA = {
         "SIS 官网"
       ],
       "notes": [
-        "公共体育课（1 CU，Graded No GPA），不计入专业 16 CUs。"
+        "公共体育课（SIS 课程字段 1 CU，Graded No GPA），不计入 DS 学分，可自由选修。"
       ]
     },
     {
@@ -789,7 +792,7 @@ window.DS_ASSISTANT_DATA = {
       "category": "elective",
       "offeredSemA": false,
       "planningEligible": false,
-      "prerequisites": "项目页列有数据结构与数学背景先修组合；具体课号与替代组合以 SIS / Course Catalogue 最新标注为准。",
+      "prerequisites": "Pre-requisite(s): CS3334 Data Structures AND (MA2176 Basic Calculus and Linear Algebra 或 MA2170 Linear Algebra & Multi-variable Calculus 或 MA2172 Applied Statistics for Sciences & Engineering)。",
       "sections": [],
       "sources": [
         "CIR / 项目网页截图"
@@ -819,7 +822,7 @@ window.DS_ASSISTANT_DATA = {
       "category": "elective",
       "offeredSemA": false,
       "planningEligible": false,
-      "prerequisites": "项目页列有多项可替代先修（含机器学习/人工智能相关课程）；选课前应直接核对 SIS。",
+      "prerequisites": "Pre-requisite(s): CS5286 Algorithms and Techniques for Web Searching 或 CS5487 Machine Learning: Principles and Practice 或 CS5489 Machine Learning: Algorithms and Applications 或 CS5491 Artificial Intelligence（四选一）。",
       "sections": [],
       "sources": [
         "CIR / 项目网页截图"

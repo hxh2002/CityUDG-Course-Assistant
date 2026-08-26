@@ -125,24 +125,46 @@
     const hasIP5901=urCodes.includes("IP5901");
     const hasIP5902=urCodes.includes("IP5902");
     const hasIP5903=urCodes.includes("IP5903");
-    const hasBoth=hasIP5902 && hasIP5903;
+
+    // 本学期思政：建议 1 门
+    const semUrCodes=urCodes.filter(code=>courseByCode(code)?.offeredSemA===true);
+    let semUrText;
+    if(semUrCodes.length===0){
+      semUrText="尚未选择本学期思政课：IP5901（2 CUs）或 IP5902/IP5903 二选一（1 CU）。";
+    } else if(semUrCodes.length===1){
+      const c=courseByCode(semUrCodes[0]);
+      semUrText=`已选 ${c.zh}（${c.code}，${c.credits} CU${c.credits>1?"s":""}）。`;
+    } else {
+      semUrText=`已选 ${semUrCodes.length} 门思政；Semester A 建议只选 1 门。`;
+    }
+    checks.push({
+      ok:semUrCodes.length===1,
+      level:semUrCodes.length===1?"ok":(semUrCodes.length>1?"warn":"info"),
+      title:"本学期思政课（1 门）",
+      text:semUrText
+    });
+
+    // 整个项目 UR 完整性
+    const hasBothOne=hasIP5902 && hasIP5903;
     const urDone=hasIP5901 && (hasIP5902||hasIP5903);
     const urMissing=[];
-    if(!hasIP5901)urMissing.push("IP5901（2 CUs）");
+    if(!hasIP5901)urMissing.push("IP5901（2 CUs 必修）");
     if(!hasIP5902 && !hasIP5903)urMissing.push("IP5902/IP5903 二选一（1 CU）");
     checks.push({
-      ok:urDone && !hasBoth,
-      level:hasBoth?"danger":(urDone?"ok":"warn"),
-      title:"思政 / University Requirement",
-      text:hasBoth ? "IP5902 与 IP5903 为二选一，不能同时计入 UR。" :
+      ok:urDone && !hasBothOne,
+      level:hasBothOne?"danger":(urDone?"ok":"info"),
+      title:"整个项目 University Requirement",
+      text:hasBothOne ? "IP5902 与 IP5903 为二选一，不能同时计入 UR。" :
         (urDone ? "UR 3 CUs 已规划完整：IP5901（2 CUs）+ IP5902/IP5903 二选一（1 CU）。" :
-        `尚未补齐：${urMissing.join("、")}。University Requirement 共 3 CUs（IP5901 2 CUs 必修 + IP5902/IP5903 二选一 1 CU）。`)
+        `整个项目尚需 3 CUs UR，目前缺：${urMissing.join("、")}。`)
     });
+
+    const totalOk=stats.total===16 || stats.total===17;
     checks.push({
-      ok:stats.total===16,
-      level:stats.total===16?"ok":(stats.total>17?"danger":"info"),
+      ok:totalOk,
+      level:totalOk?"ok":(stats.total>17?"danger":"info"),
       title:"Semester A 总学分",
-      text:`当前 ${stats.total} CUs；项目班会推荐 16 CUs，一般 Semester A/B 学分负荷为 6–17 CUs。`
+      text:`当前 ${stats.total} CUs；思政选 IP5902/IP5903 为 16 CUs，选 IP5901 为 17 CUs。`
     });
     const publicCodes=Object.keys(selections).filter(code=>courseByCode(code)?.category==="public");
     checks.push({
@@ -150,8 +172,8 @@
       level:"info",
       title:"公共课（英语 / 体育）",
       text:publicCodes.length
-        ? `已规划 ${stats.public} CU 公共课（不计入专业 16 CUs）。`
-        : "英语（EN1002P）与体育（PE5911/PE6911）为额外公共课，不计入专业 16 CUs，按需选择。"
+        ? `已规划 ${stats.public} CU 公共课（不计入 DS 学分，自由选修）。`
+        : "英语（EN1002P）与体育（PE5911/PE6911）不计入 DS 学分，完全自由选修。"
     });
     const conf=conflicts(selections);
     checks.push({

@@ -27,14 +27,14 @@
     <section class="guide-section">
       <h2>二、Semester A 第一学期要求</h2>
       <div class="semester-formula">
-        <div><strong>9</strong><span>三门核心课</span></div><b>+</b>
-        <div><strong>6</strong><span>两门选修课</span></div><b>+</b>
-        <div><strong>1</strong><span>一门 UR</span></div><b>=</b>
-        <div class="total"><strong>16</strong><span>CUs</span></div>
+        <div><strong>1</strong><span>一门思政课</span></div><b>+</b>
+        <div><strong>3</strong><span>三门核心课</span></div><b>+</b>
+        <div><strong>2</strong><span>两门选修课</span></div><b>=</b>
+        <div class="total"><strong>16/17</strong><span>CUs</span></div>
       </div>
-      <p>三门核心课为统计机器学习 I（DSC5001 Statistical Machine Learning I）、探索性数据分析与可视化（DSC5002 Exploratory Data Analysis and Visualization）、数据存储与检索（DSC5003 Storing and Retrieving Data）。</p>
-      <p>整个硕士阶段仍需完成 3 CUs University Requirement：新时代中国特色社会主义理论与实践（IP5901 Theory and Practice of Socialism with Chinese Characteristics in the New Era）2 CUs，加上自然辩证法概论（IP5902 Dialectics of Nature）与马克思主义与社会科学方法论（IP5903 Marxism and Methodology of Social Sciences）二选一 1 CU。</p>
-      <div class="notice warning">现有 Semester A 材料只明确“1 门 University Requirement、合计 16 CUs”，没有可靠指定该 1 CU 到底是 IP5902 还是 IP5903；助手因此不自动替你选，必须看 SIS。</div>
+      <p>三门核心课为统计机器学习 I（DSC5001 Statistical Machine Learning I）、探索性数据分析与可视化（DSC5002 Exploratory Data Analysis and Visualization）、数据存储与检索（DSC5003 Storing and Retrieving Data），合计 9 CUs；两门选修课从本学期开设的 DS 选修中选择，合计 6 CUs。</p>
+      <p>本学期选 1 门思政课：若选自然辩证法概论（IP5902 Dialectics of Nature）或马克思主义与社会科学方法论（IP5903 Marxism and Methodology of Social Sciences）（各 1 CU），本学期合计 16 CUs；若选新时代中国特色社会主义理论与实践（IP5901 Theory and Practice of Socialism with Chinese Characteristics in the New Era）（2 CUs），本学期合计 17 CUs。</p>
+      <div class="notice warning">整个硕士阶段仍需最终完成 3 CUs University Requirement = IP5901（2 CUs 必修）+ IP5902/IP5903 二选一（1 CU）。本学期只修其中 1 门思政，后续学期仍需补齐其余部分。</div>
     </section>
 
     <section class="guide-section">

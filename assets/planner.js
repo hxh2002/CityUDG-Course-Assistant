@@ -92,7 +92,7 @@
     const s=A.selectionStats(selections), target=D.requirements.semATarget;
     $("#core-credit").textContent=s.core;
     $("#elec-credit").textContent=s.elective;
-    $("#ur-credit").textContent=s.ur;
+    $("#ur-credit").textContent=s.counts.ur;
     $("#total-credit").textContent=s.total;
     const selectedCountEl=$("#selected-count");
     if(selectedCountEl)selectedCountEl.textContent=s.counts.total;
