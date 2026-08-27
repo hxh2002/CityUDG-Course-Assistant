@@ -154,7 +154,7 @@ window.DS_ASSISTANT_DATA = {
       "sections": [
         {
           "id": "L1216",
-          "label": "Lecture 1216 · 周三 18:30–20:20 · 10 周（09/02–11/11，国庆 10/07 调休）· 座位 144/150",
+          "label": "Lecture 1216 · 周三 18:30–20:20 · Week 1–12 · 座位 144/150",
           "meetings": [
             {
               "day": "W",
@@ -162,13 +162,13 @@ window.DS_ASSISTANT_DATA = {
               "end": "20:20",
               "type": "Lecture",
               "room": "LIB-101",
-              "weeks": "1–5, 7–11"
+              "weeks": "1–12"
             }
           ]
         },
         {
           "id": "L1217",
-          "label": "Lecture 1217 · 周三 18:30–20:20 · 10 周（09/02–11/11，国庆 10/07 调休）· 座位 150/150",
+          "label": "Lecture 1217 · 周三 18:30–20:20 · Week 1–12 · 座位 150/150",
           "meetings": [
             {
               "day": "W",
@@ -176,13 +176,13 @@ window.DS_ASSISTANT_DATA = {
               "end": "20:20",
               "type": "Lecture",
               "room": "AC5-515",
-              "weeks": "1–5, 7–11"
+              "weeks": "1–12"
             }
           ]
         },
         {
           "id": "L1218",
-          "label": "Lecture 1218 · 周三 18:30–20:20 · 10 周（09/02–11/11，国庆 10/07 调休）· 座位 140/140",
+          "label": "Lecture 1218 · 周三 18:30–20:20 · Week 1–12 · 座位 140/140",
           "meetings": [
             {
               "day": "W",
@@ -190,13 +190,13 @@ window.DS_ASSISTANT_DATA = {
               "end": "20:20",
               "type": "Lecture",
               "room": "AC4-416",
-              "weeks": "1–5, 7–11"
+              "weeks": "1–12"
             }
           ]
         },
         {
           "id": "L1219",
-          "label": "Lecture 1219 · 周三 18:30–20:20 · 10 周（09/02–11/11，国庆 10/07 调休）· 座位 140/140",
+          "label": "Lecture 1219 · 周三 18:30–20:20 · Week 1–12 · 座位 140/140",
           "meetings": [
             {
               "day": "W",
@@ -204,13 +204,13 @@ window.DS_ASSISTANT_DATA = {
               "end": "20:20",
               "type": "Lecture",
               "room": "AC4-417",
-              "weeks": "1–5, 7–11"
+              "weeks": "1–12"
             }
           ]
         },
         {
           "id": "L1220",
-          "label": "Lecture 1220 · 周四 18:30–20:20 · 10 周（09/03–11/12，国庆 10/01 调休）· 座位 150/150",
+          "label": "Lecture 1220 · 周四 18:30–20:20 · Week 1–12 · 座位 150/150",
           "meetings": [
             {
               "day": "R",
@@ -218,13 +218,13 @@ window.DS_ASSISTANT_DATA = {
               "end": "20:20",
               "type": "Lecture",
               "room": "LIB-101",
-              "weeks": "1–4, 6–11"
+              "weeks": "1–12"
             }
           ]
         },
         {
           "id": "L1221",
-          "label": "Lecture 1221 · 周四 18:30–20:20 · 10 周（09/03–11/12，国庆 10/01 调休）· 座位 150/150",
+          "label": "Lecture 1221 · 周四 18:30–20:20 · Week 1–12 · 座位 150/150",
           "meetings": [
             {
               "day": "R",
@@ -232,13 +232,13 @@ window.DS_ASSISTANT_DATA = {
               "end": "20:20",
               "type": "Lecture",
               "room": "AC5-515",
-              "weeks": "1–4, 6–11"
+              "weeks": "1–12"
             }
           ]
         },
         {
           "id": "L1222",
-          "label": "Lecture 1222 · 周二 14:00–15:50 · 10 周（09/01–11/10，国庆 10/06 调休）· 座位 150/150",
+          "label": "Lecture 1222 · 周二 14:00–15:50 · Week 1–12 · 座位 150/150",
           "meetings": [
             {
               "day": "T",
@@ -246,13 +246,13 @@ window.DS_ASSISTANT_DATA = {
               "end": "15:50",
               "type": "Lecture",
               "room": "LIB-101",
-              "weeks": "1–5, 7–11"
+              "weeks": "1–12"
             }
           ]
         },
         {
           "id": "L1223",
-          "label": "Lecture 1223 · 周四 08:30–10:20 · 10 周（09/03–11/12，国庆 10/01 调休）· 座位 150/150",
+          "label": "Lecture 1223 · 周四 08:30–10:20 · Week 1–12 · 座位 150/150",
           "meetings": [
             {
               "day": "R",
@@ -260,13 +260,13 @@ window.DS_ASSISTANT_DATA = {
               "end": "10:20",
               "type": "Lecture",
               "room": "LIB-101",
-              "weeks": "1–4, 6–11"
+              "weeks": "1–12"
             }
           ]
         },
         {
           "id": "L1224",
-          "label": "Lecture 1224 · 周四 10:30–12:20 · 10 周（09/03–11/12，国庆 10/01 调休）· 座位 150/150",
+          "label": "Lecture 1224 · 周四 10:30–12:20 · Week 1–12 · 座位 150/150",
           "meetings": [
             {
               "day": "R",
@@ -274,7 +274,7 @@ window.DS_ASSISTANT_DATA = {
               "end": "12:20",
               "type": "Lecture",
               "room": "LIB-101",
-              "weeks": "1–4, 6–11"
+              "weeks": "1–12"
             }
           ]
         }
