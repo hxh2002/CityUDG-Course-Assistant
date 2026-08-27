@@ -29,7 +29,9 @@
     window.dispatchEvent(new CustomEvent("ds-selection-change"));
   }
   function defaultSection(c) {
-    return c.sections && c.sections.length ? c.sections[0].id : null;
+    if (!c.sections || !c.sections.length) return null;
+    if (c.defaultSection && c.sections.some(s => s.id === c.defaultSection)) return c.defaultSection;
+    return c.sections[0].id;
   }
   function selectedSection(c, sel) {
     if (!c || !c.sections || !c.sections.length) return null;
