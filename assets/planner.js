@@ -51,18 +51,27 @@
     list.innerHTML=items.length?items.map(c=>{
       const selected=!!selections[c.code];
       const canAdd=!!c.planningEligible;
-      const sched=A.scheduleText(c,selections[c.code]);
+      const sections=c.sections||[];
+      const multi=sections.length>1;
+      const curId=selections[c.code]?.sectionId || A.defaultSection(c);
+      const sched=A.scheduleText(c,{sectionId:curId});
       const cs=ratingMap[c.code] || {count:0,ratingCount:0,avg:0};
       const ratingLine=cs.ratingCount?`<span class="rating-line" title="平均打分 / 评论数">★ ${(Math.round(cs.avg*10)/10).toFixed(1)} <small>(${cs.ratingCount})</small></span>`:"";
-      return `<article class="course-card ${selected?"is-selected":""}">
+      const sectionPicker=multi?`<label class="section-picker card-section-picker">选择班级
+        <select data-code="${A.esc(c.code)}" data-role="card-section">
+          ${sections.map(s=>`<option value="${A.esc(s.id)}" ${s.id===curId?"selected":""}>${A.esc(s.label)}</option>`).join("")}
+        </select>
+      </label>`:"";
+      return `<article class="course-card ${selected?"is-selected":""}" data-code="${A.esc(c.code)}">
         <div class="card-top">
           <div class="badges">${A.categoryBadge(c)}${A.offeredBadge(c)}</div>
           <span class="credits">${c.credits} CU${Number(c.credits)!==1?"s":""}</span>
         </div>
         <a class="course-name" href="course.html?c=${encodeURIComponent(c.code)}">${A.esc(A.displayName(c))}</a>
-        <p class="course-schedule">${A.esc(sched)}</p>
+        <p class="course-schedule" data-role="schedule">${A.esc(sched)}</p>
         ${c.instructor?`<p class="course-instructor">${A.esc(c.instructor)}</p>`:""}
         ${ratingLine?`<p class="course-rating">${ratingLine}</p>`:""}
+        ${sectionPicker}
         <div class="card-actions">
           <a class="text-link" href="course.html?c=${encodeURIComponent(c.code)}">详情 / 评论</a>
           ${canAdd?`<button class="button ${selected?"button-quiet":"button-primary"} add-btn" data-code="${A.esc(c.code)}">${selected?"移除":"加入课表"}</button>`:
@@ -70,8 +79,26 @@
         </div>
       </article>`;
     }).join(""):'<div class="empty-state">没有符合条件的课程</div>';
+    list.querySelectorAll("[data-role='card-section']").forEach(sel=>sel.addEventListener("change",()=>{
+      const code=sel.dataset.code;
+      if(selections[code]){
+        A.setCourse(code, sel.value); selections=A.getSelections(); renderAll();
+      } else {
+        const card=sel.closest(".course-card");
+        const sch=card?.querySelector("[data-role='schedule']");
+        if(sch) sch.textContent=A.scheduleText(A.courseByCode(code),{sectionId:sel.value});
+      }
+    }));
     list.querySelectorAll(".add-btn").forEach(btn=>btn.addEventListener("click",()=>{
-      A.toggleCourse(btn.dataset.code); selections=A.getSelections(); renderAll();
+      const code=btn.dataset.code;
+      if(selections[code]){
+        A.removeCourse(code);
+      } else {
+        const card=btn.closest(".course-card");
+        const selEl=card?.querySelector("[data-role='card-section']");
+        A.setCourse(code, selEl?.value || undefined);
+      }
+      selections=A.getSelections(); renderAll();
     }));
   }
   function renderSelected(){
