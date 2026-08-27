@@ -301,13 +301,28 @@ window.DS_ASSISTANT_DATA = {
       "choiceGroup": "ur_one_of_two",
       "requirement": "与 IP5903 二选一（1 CU）。本学期可选作 Semester A 的 1 门思政，选则本学期合计 16 CUs；后续整个项目仍需补 IP5901（2 CUs）。",
       "prerequisites": "无明确先修要求",
-      "sections": [],
-      "scheduleUnknown": true,
+      "instructor": "DU Nannan",
+      "sections": [
+        {
+          "id": "L1145",
+          "label": "Lecture 1145 · 周五 18:30–20:20 · Week 1–9 · AC5-514",
+          "meetings": [
+            {
+              "day": "F",
+              "start": "18:30",
+              "end": "20:20",
+              "type": "Lecture",
+              "room": "AC5-514",
+              "weeks": "1–9"
+            }
+          ]
+        }
+      ],
       "sources": [
         "SIS 官网 / CIR / 入学班会 PPT"
       ],
       "notes": [
-        "本学期 1 个班（Lecture 1145），具体时段以 SIS 为准。"
+        "本学期 1 个班（Lecture 1145），周五 18:30–20:20，Week 1–9，AC5-514，教师 DU Nannan。"
       ]
     },
     {
