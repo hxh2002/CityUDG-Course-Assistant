@@ -83,6 +83,7 @@
         </div>
         <div class="toolbar-actions">
           <span id="conflict-status" class="conflict-status is-clear">暂无已知冲突</span>
+          <button id="export-pdf" class="button button-quiet">导出 PDF</button>
           <button id="copy-plan" class="button button-quiet">复制清单</button>
           <button id="clear-selection" class="button button-quiet">清空</button>
         </div>
@@ -112,5 +113,8 @@
 <footer class="site-footer"><span>资料快照：2026-08-26 · 非官方辅助工具；最终以 SIS / ARRO / 任课教师通知为准。</span></footer>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script src="assets/data.js"></script><script src="assets/shared.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/supabase.js"></script><script src="assets/planner.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="assets/planner.js"></script>
 </body></html>

@@ -179,7 +179,8 @@
         block.className=`meeting ${color}`;
         block.style.top=top+"%";
         block.style.height=Math.max(3,bottom-top)+"%";
-        block.innerHTML=`<strong>${A.esc(c.zh)}</strong><span>${A.esc(code)} · ${A.esc(m.start)}–${A.esc(m.end)}</span><span>${A.esc(m.type)} · ${A.esc(m.room||"")}</span><small>${A.esc(m.weeks||"")}</small>`;
+        const instructorLine=c.instructor?`<span class="meet-instructor">${A.esc(c.instructor)}</span>`:"";
+        block.innerHTML=`<strong>${A.esc(c.zh)}</strong><span>${A.esc(code)} · ${A.esc(m.start)}–${A.esc(m.end)}</span><span>${A.esc(m.type||"Lecture")} · ${A.esc(m.room||"地点待定")}</span>${instructorLine}<small>${A.esc(m.weeks||"")}</small>`;
         col.appendChild(block);
       });
     });
@@ -229,6 +230,34 @@
     try{await navigator.clipboard.writeText(text);A.showToast("选课清单已复制");}
     catch(_){prompt("复制以下内容：",text);}
   });
+  $("#export-pdf").addEventListener("click",exportPDF);
+
+  async function exportPDF(){
+    const el=document.querySelector(".timetable");
+    if(!el){ A.showToast("暂无课表可导出"); return; }
+    const btn=$("#export-pdf");
+    if(btn){ btn.disabled=true; btn.textContent="生成中…"; }
+    try{
+      A.showToast("正在生成 PDF…");
+      const canvas=await html2canvas(el,{scale:2,backgroundColor:"#ffffff",useCORS:true});
+      const imgData=canvas.toDataURL("image/png");
+      const { jsPDF }=window.jspdf;
+      const pdf=new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
+      const pageW=pdf.internal.pageSize.getWidth();
+      const pageH=pdf.internal.pageSize.getHeight();
+      const margin=6;
+      const ratio=Math.min((pageW-margin*2)/canvas.width,(pageH-margin*2)/canvas.height);
+      const imgW=canvas.width*ratio;
+      const imgH=canvas.height*ratio;
+      pdf.addImage(imgData,"PNG",(pageW-imgW)/2,(pageH-imgH)/2,imgW,imgH);
+      pdf.save("CityUDG-DS-SemA-Timetable.pdf");
+      A.showToast("PDF 已导出");
+    }catch(err){
+      A.showToast("导出失败："+(err.message||"未知错误"));
+    }finally{
+      if(btn){ btn.disabled=false; btn.textContent="导出 PDF"; }
+    }
+  }
 
   async function init(){
     try{
