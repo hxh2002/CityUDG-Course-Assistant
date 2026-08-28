@@ -233,19 +233,58 @@
   $("#export-pdf").addEventListener("click",exportPDF);
 
   async function exportPDF(){
-    const el=document.querySelector(".timetable");
-    if(!el){ A.showToast("暂无课表可导出"); return; }
+    const src=document.querySelector(".timetable");
+    if(!src){ A.showToast("暂无课表可导出"); return; }
     const btn=$("#export-pdf");
     if(btn){ btn.disabled=true; btn.textContent="生成中…"; }
+
+    const stats=A.selectionStats(selections);
+    const conf=A.conflicts(selections);
+    const now=new Date();
+    const p2=n=>String(n).padStart(2,"0");
+    const stamp=`${now.getFullYear()}-${p2(now.getMonth()+1)}-${p2(now.getDate())} ${p2(now.getHours())}:${p2(now.getMinutes())}`;
+
+    const root=document.createElement("div");
+    root.id="pdf-export-root";
+    root.style.cssText="position:absolute;left:-9999px;top:0;width:1000px;background:#ffffff;padding:28px;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;color:#1a1f28;";
+    root.innerHTML=`
+      <style>
+        #pdf-export-root .timetable{min-width:0;width:100%;grid-template-columns:64px repeat(6,1fr)}
+        #pdf-export-root .meeting strong{font-size:12px}
+        #pdf-export-root .meeting span,#pdf-export-root .meeting small{font-size:9.5px;margin-top:3px}
+        #pdf-export-root .day-heading strong{font-size:12.5px}
+        #pdf-export-root .day-heading span{font-size:9.5px}
+        #pdf-export-root .time-axis span{font-size:10px}
+      </style>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:4px solid #9e1230;padding-bottom:14px;margin-bottom:16px;">
+        <div>
+          <div style="font-size:13px;color:#6b7280;letter-spacing:.12em;font-weight:600;">香港城市大学（东莞） · 数据科学硕士 · MS DATA SCIENCE</div>
+          <h1 style="margin:7px 0 0;font-size:28px;font-weight:800;letter-spacing:.01em;">2026/27 Semester A 我的课表</h1>
+        </div>
+        <div style="text-align:right;font-size:12px;color:#6b7280;line-height:1.8;white-space:nowrap;">
+          <div>核心 <b style="color:#1a1f28;">${stats.core}</b> CUs · 选修 <b style="color:#1a1f28;">${stats.elective}</b> CUs · 思政 <b style="color:#1a1f28;">${stats.counts.ur}</b> 门 · 总计 <b style="color:#1a1f28;">${stats.total}</b> CUs</div>
+          <div>${conf.length?`<span style="color:#9e1230;font-weight:700;">${conf.length} 处时间冲突</span>`:'<span style="color:#17674b;font-weight:700;">暂无已知冲突</span>'}</div>
+        </div>
+      </div>
+      <div id="pdf-timetable-slot" style="border:1px solid #cbd2d9;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(20,30,50,.06);"></div>
+      <div style="margin-top:14px;font-size:11px;color:#8a919b;line-height:1.6;display:flex;justify-content:space-between;align-items:center;">
+        <span>非官方辅助工具 · 最终以 SIS / ARRO / 任课教师通知为准 · 国庆周部分课程停课，以 SIS 班次日期为准。</span>
+        <span style="flex:none;margin-left:24px;">导出时间：${stamp}（GMT+8）</span>
+      </div>`;
+
+    const slot=root.querySelector("#pdf-timetable-slot");
+    slot.appendChild(src.cloneNode(true));
+    document.body.appendChild(root);
+
     try{
       A.showToast("正在生成 PDF…");
-      const canvas=await html2canvas(el,{scale:2,backgroundColor:"#ffffff",useCORS:true});
+      const canvas=await html2canvas(root,{scale:3,backgroundColor:"#ffffff",useCORS:true,logging:false});
       const imgData=canvas.toDataURL("image/png");
       const { jsPDF }=window.jspdf;
       const pdf=new jsPDF({orientation:"landscape",unit:"mm",format:"a4"});
       const pageW=pdf.internal.pageSize.getWidth();
       const pageH=pdf.internal.pageSize.getHeight();
-      const margin=6;
+      const margin=10;
       const ratio=Math.min((pageW-margin*2)/canvas.width,(pageH-margin*2)/canvas.height);
       const imgW=canvas.width*ratio;
       const imgH=canvas.height*ratio;
@@ -255,6 +294,7 @@
     }catch(err){
       A.showToast("导出失败："+(err.message||"未知错误"));
     }finally{
+      document.body.removeChild(root);
       if(btn){ btn.disabled=false; btn.textContent="导出 PDF"; }
     }
   }
